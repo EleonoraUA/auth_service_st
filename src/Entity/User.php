@@ -13,6 +13,11 @@ class User implements UserInterface
     /**
      * @var string
      */
+    private $id;
+
+    /**
+     * @var string
+     */
     private $username;
 
     /**
@@ -44,6 +49,26 @@ class User implements UserInterface
      * @var string The hashed password
      */
     private $password;
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     * @return $this
+     */
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
 
     /**
      * @param string $username

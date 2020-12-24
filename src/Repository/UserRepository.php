@@ -40,8 +40,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function __construct(Filesystem $filesystem, string $userFilesSaveDir, SerializerInterface $serializer)
     {
-//        $this->userFilesSaveDir = $userFilesSaveDir;
-        $this->userFilesSaveDir = __DIR__ . '/../../storage/';
+        $this->userFilesSaveDir = $userFilesSaveDir;
         $this->filesystem = $filesystem;
         $this->serializer = $serializer;
     }
@@ -71,12 +70,8 @@ class UserRepository implements UserRepositoryInterface
         $serializedUser = $this->serializer->serialize($user, self::SERIALIZER_FORMAT);
 
         $userPath = $this->getUserPath($user->getUsername());
-//        if (!$this->filesystem->exists($userPath)) {
-//            mkdir($userPath);
-//        }
-        $this->filesystem->appendToFile($userPath, $serializedUser);
 
-//        file_put_contents($userPath, $serializedUser);
+        $this->filesystem->appendToFile($userPath, $serializedUser);
     }
 
     /**

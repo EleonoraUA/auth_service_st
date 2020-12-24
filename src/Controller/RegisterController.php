@@ -46,6 +46,6 @@ class RegisterController extends AbstractController
 
         $user = $this->userManager->createUserFromData($requestData);
 
-        return new JsonResponse(json_encode($user));
+        return new JsonResponse(['status' => true, 'userId' => $user->getId()]);
     }
 }

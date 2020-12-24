@@ -81,6 +81,7 @@ class UserManager implements UserManagerInterface
     {
         $user = new User;
         $user
+            ->setId(uniqid())
             ->setAge($userData['age'])
             ->setFirstName($userData['firstname'])
             ->setLastName($userData['lastname'])

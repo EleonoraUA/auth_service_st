@@ -2,5 +2,9 @@ register:
     path: /register
     controller: App\Controller\RegisterController::index
 
+track_action:
+  path: /api/track_action
+  controller: App\Controller\MarketingController::trackAction
+
 api_login_check:
   path: /api/login_check

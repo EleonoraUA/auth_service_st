@@ -13,3 +13,7 @@
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
 /.idea
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###

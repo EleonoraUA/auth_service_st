@@ -43,7 +43,7 @@ class RegisterController extends AbstractController
      * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $requestDataJson = $request->getContent();
         $requestData = json_decode($requestDataJson, true);

@@ -30,7 +30,7 @@ class JWTSuccessAuthEventListener
     /**
      * @param AuthenticationSuccessEvent $event
      */
-    public function onAuthenticationSuccess(AuthenticationSuccessEvent $event)
+    public function onAuthenticationSuccess(AuthenticationSuccessEvent $event): void
     {
         $this->analyticEventDispatcher->dispatch('auth_success', $event->getUser()->getId());
     }

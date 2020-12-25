@@ -26,7 +26,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
      * UserProvider constructor.
      * @param UserRepositoryInterface $userRepository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }

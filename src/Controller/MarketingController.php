@@ -35,7 +35,7 @@ class MarketingController extends AbstractController
      * @param Request $request
      * @return JsonResponse
      */
-    public function trackAction(Request $request)
+    public function trackAction(Request $request): JsonResponse
     {
         $requestJson = $request->getContent();
         $requestData = json_decode($requestJson, true);

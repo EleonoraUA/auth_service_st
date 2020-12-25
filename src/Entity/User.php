@@ -10,6 +10,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    public const ANON_USER_ID_KEY = 'anon_user_id';
+
     /**
      * @var string
      */

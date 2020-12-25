@@ -6,6 +6,7 @@ namespace App\Service;
 
 use App\Message\AnalyticEventMessage;
 use \SocialTech\SlowStorage;
+use SocialTech\StorageInterface;
 
 /**
  * Class AnalyticService
@@ -27,10 +28,10 @@ class AnalyticService implements AnalyticServiceInterface
 
     /**
      * AnalyticService constructor.
-     * @param SlowStorage $slowStorage
+     * @param StorageInterface $slowStorage
      * @param string $analyticFilesSaveDir
      */
-    public function __construct(SlowStorage $slowStorage, string $analyticFilesSaveDir)
+    public function __construct(StorageInterface $slowStorage, string $analyticFilesSaveDir)
     {
         $this->slowStorage = $slowStorage;
         $this->analyticFilesSaveDir = $analyticFilesSaveDir;
@@ -55,9 +56,9 @@ class AnalyticService implements AnalyticServiceInterface
     protected static function getEventData(AnalyticEventMessage $message): string
     {
         return json_encode([
-            'dateCreated' => (new \DateTime())->setTimestamp($message->getDateCreated())->format('Y-m-d H:i:s'),
+            'date_created' => (new \DateTime())->setTimestamp($message->getDateCreated())->format('Y-m-d H:i:s'),
             'source_label' => $message->getSourceLabel(),
-            'user_id' => $message->getUserId()
+            'id_user' => $message->getUserId()
         ]);
     }
 

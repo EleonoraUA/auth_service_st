@@ -7,9 +7,7 @@ use App\Entity\User;
 use App\Exceptions\InvalidUserDataException;
 use App\Exceptions\UserAlreadyExistsException;
 use App\Exceptions\UserNotFoundException;
-use App\Repository\UserRepository;
 use App\Repository\UserRepositoryInterface;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -30,9 +28,9 @@ class UserManager implements UserManagerInterface
     /**
      * UserManager constructor.
      * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param UserRepository $userRepository
+     * @param UserRepositoryInterface $userRepository
      */
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository)
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder, UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
         $this->passwordEncoder = $passwordEncoder;

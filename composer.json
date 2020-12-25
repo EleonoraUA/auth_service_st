@@ -14,6 +14,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
+        "ext-ampq": "*",
         "lexik/jwt-authentication-bundle": "^2.10",
         "socialtechio/slow-storage-emulator": "dev-master",
         "symfony/amqp-messenger": "5.2.*",

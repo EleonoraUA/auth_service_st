@@ -4,10 +4,12 @@
 namespace App\Controller;
 
 
+use App\Entity\User;
 use App\Service\AnalyticEventDispatcher;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class MarketingController
@@ -40,10 +42,13 @@ class MarketingController extends AbstractController
 
         $sourceLabel = $requestData['source_label'] ?? null;
         if (!$sourceLabel) {
-            return new JsonResponse(['status' => false, 'message' => 'No source_label in request']);
+            return new JsonResponse(['status' => false, 'message' => 'No source_label in request'], Response::HTTP_BAD_REQUEST);
         }
 
-        $this->analyticEventDispatcher->dispatch($sourceLabel, $this->getUser()->getId());
+        $userId = $this->getUser()
+            ? $this->getUser()->getId()
+            : $request->cookies->get(User::ANON_USER_ID_KEY);
+        $this->analyticEventDispatcher->dispatch($sourceLabel, $userId);
 
         return new JsonResponse(['status' => true]);
     }

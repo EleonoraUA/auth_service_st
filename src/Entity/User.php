@@ -21,11 +21,6 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @var string|null
-     */
-    private $apiToken;
-
-    /**
      * @var int
      */
     private $age;
@@ -106,25 +101,6 @@ class User implements UserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getApiToken(): ?string
-    {
-        return $this->apiToken;
-    }
-
-    /**
-     * @param string|null $apiToken
-     * @return $this
-     */
-    public function setApiToken(?string $apiToken): self
-    {
-        $this->apiToken = $apiToken;
 
         return $this;
     }

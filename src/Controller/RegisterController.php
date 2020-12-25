@@ -4,11 +4,14 @@
 namespace App\Controller;
 
 use App\Exceptions\InvalidUserDataException;
+use App\Exceptions\UserAlreadyExistsException;
+use App\Service\AnalyticEventDispatcher;
 use App\Service\UserManager;
 use App\Service\UserManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class RegisterController
@@ -22,11 +25,18 @@ class RegisterController extends AbstractController
     protected $userManager;
 
     /**
-     * RegisterController constructor.
-     * @param UserManagerInterface $userManager
+     * @var AnalyticEventDispatcher
      */
-    public function __construct(UserManager $userManager)
+    protected $analyticEventDispatcher;
+
+    /**
+     * RegisterController constructor.
+     * @param UserManager $userManager
+     * @param AnalyticEventDispatcher $analyticEventDispatcher
+     */
+    public function __construct(UserManager $userManager, AnalyticEventDispatcher $analyticEventDispatcher)
     {
+        $this->analyticEventDispatcher = $analyticEventDispatcher;
         $this->userManager = $userManager;
     }
 
@@ -44,8 +54,13 @@ class RegisterController extends AbstractController
             throw new InvalidUserDataException('User data must be JSON');
         }
 
-        $user = $this->userManager->createUserFromData($requestData);
+        try {
+            $user = $this->userManager->createUserFromData($requestData);
+            $this->analyticEventDispatcher->dispatch('register_success', $user->getId());
+        } catch (UserAlreadyExistsException | InvalidUserDataException $exception) {
+            return new JsonResponse(['status' => false, 'message' => $exception->getMessage(), Response::HTTP_BAD_REQUEST]);
+        }
 
-        return new JsonResponse(['status' => true, 'userId' => $user->getId()]);
+        return new JsonResponse(['status' => true, 'userId' => $user->getId(), Response::HTTP_CREATED]);
     }
 }

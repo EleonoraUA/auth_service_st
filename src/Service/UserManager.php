@@ -51,7 +51,7 @@ class UserManager implements UserManagerInterface
         }
 
         if ($this->checkUserExists($userData['username'])) {
-            throw new UserAlreadyExistsException();
+            throw new UserAlreadyExistsException('user by nickname exists');
         }
 
         $user = $this->buildObjectFromData($userData);
